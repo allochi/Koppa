@@ -1,20 +1,28 @@
 require 'util'
 
-local size = { width = 320*2, height = 480*2 }
+local scale = 1
+local priority = 1
+
+local size = { width = 320*scale, height = 480*scale }
 Util:window('H 0.3', size)
 viewport = Util:viewport(size)
-background = Util:character({ file = 'images/paper-background.jpg', width = 320*2, height = 480*2 })
+background = Util:character({ file = 'images/paper-background.jpg', width = 320*scale, height = 480*scale })
 bg_layer = Util:layer(viewport, true)
 bg_layer:insertProp(background)
 
--- Making the ball
-local ball = Util:character({ file = 'images/soccer-ball.png', width = 600, height = 600, scale = 0.3})
-ball.name = "Football"
--- ball:setParent(background)
-ball_layer = Util:layer(viewport, true)
+-- Make a layer and partition for the balls
+local balls_layer = Util:layer(viewport, true)
 local partition = MOAIPartition.new()
-ball_layer:setPartition(partition)
-partition:insertProp(ball)
+balls_layer:setPartition(partition)
+
+-- Making the ball
+local balls = {}
+local number_of_balls = 6
+for i=1,number_of_balls do
+  balls[i] = Util:character({ file = 'images/soccer-ball.png', width = 600, height = 600, scale = 0.2})
+  balls[i].name = "Football " .. i
+  partition:insertProp(balls[i])
+end
 
 mouse = {}
 
@@ -22,9 +30,9 @@ function onClick(down)
   if down then
     pick = partition:propForPoint ( mouseX, mouseY )
     if pick then
-      -- pick:setPriority ( priority )
-      -- priority = priority + 1
-      pick:moveScl ( 0.25, 0.25, 0.125, MOAIEaseType.EASE_IN )
+     pick:setPriority ( priority )
+     priority = priority + 1
+     pick:moveScl ( 0.25, 0.25, 0.125, MOAIEaseType.EASE_IN )
     end
   else
     if pick then
@@ -41,7 +49,7 @@ function onMove(x,y)
   local oldX = mouseX
   local oldY = mouseY
 
-  mouseX, mouseY = ball_layer:wndToWorld(x, y)
+  mouseX, mouseY = balls_layer:wndToWorld(x, y)
 
   if pick then
     pick:addLoc ( mouseX - oldX, mouseY - oldY )
