@@ -14,8 +14,7 @@ end
 function Util:image(file, size)
   local gfxQuad = MOAIGfxQuad2D.new ()
   gfxQuad:setTexture(file)
-  local w = size.width/2
-  local h = size.height/2
+  local w,h = size.width/2, size.height/2
   gfxQuad:setRect(-w,-h,w,h)
   prop = MOAIProp2D.new ()
   prop:setDeck(gfxQuad)
