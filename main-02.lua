@@ -3,12 +3,12 @@ require 'util'
 local size = { width = 320*2, height = 480*2 }
 Util:window('H 0.3', size)
 viewport = Util:viewport(size)
-background = Util:character({ file = 'paper-background.jpg', width = 320*2, height = 480*2 })
+background = Util:character({ file = 'images/paper-background.jpg', width = 320*2, height = 480*2 })
 bg_layer = Util:layer(viewport, true)
 bg_layer:insertProp(background)
 
 -- Making the ball
-local ball = Util:character({ file = 'soccer-ball.png', width = 600, height = 600, scale = 0.3})
+local ball = Util:character({ file = 'images/soccer-ball.png', width = 600, height = 600, scale = 0.3})
 ball.name = "Football"
 -- ball:setParent(background)
 ball_layer = Util:layer(viewport, true)
