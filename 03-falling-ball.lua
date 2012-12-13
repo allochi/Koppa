@@ -10,7 +10,7 @@ viewport = Util:viewport(size)
 -- Make a layer and partition for the balls
 local balls_layer = Util:layer(viewport, true)
 local partition = MOAIPartition.new()
--- balls_layer:setPartition(partition)
+balls_layer:setPartition(partition)
 
 -- Making the ball
 local ball = Util:character({ file = 'images/soccer-ball.png', width = 600, height = 600, scale = 0.1, name = "Football"})
@@ -20,7 +20,7 @@ partition:insertProp(ball)
 -- Setup 2D World
 local world = MOAIBox2DWorld.new ()
 world:setGravity ( 0, -10)
-world:setUnitsToMeters ( 0.1 )
+world:setUnitsToMeters ( 1/50 )
 world:start ()
 balls_layer:setBox2DWorld ( world )
 
@@ -40,14 +40,14 @@ body:setAngularVelocity(2)
 -- fixture = body:addPolygon ( poly )
 fixture = body:addCircle( 260, 420, 60 )
 fixture:setDensity ( 1 )
-fixture:setFriction ( 0 )
+fixture:setFriction ( 0.3 )
 fixture:setRestitution( 0.7 )
 fixture:setFilter ( 0x01 )
 fixture:setCollisionHandler ( onCollide, MOAIBox2DArbiter.BEGIN + MOAIBox2DArbiter.END, 0x02 )
 
 body:resetMassData ()
 body:applyAngularImpulse ( 2 )
--- ball:setParent ( body )
+ball:setParent ( body )
 
 -- adding ground
 -- local ground_layer = Util:layer(viewport, true)
