@@ -23,11 +23,16 @@ function Util:character(properties)
 
   local gfxQuad = MOAIGfxQuad2D.new()
   gfxQuad:setTexture(properties.file)
-  local w,h = properties.width*properties.scale/2, properties.height*properties.scale/2
+  local w,h = properties.width, properties.height
   gfxQuad:setRect(-w,-h,w,h)
   prop = MOAIProp2D.new()
   prop:setDeck(gfxQuad)
+  -- prop:setScl(properties.scale, properties.scale)
+  prop:setScl(properties.scale)
 
+
+  prop.scale = properties.scale
+  
   if properties.name then
     prop.name = properties.name
   else
