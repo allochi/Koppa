@@ -17,10 +17,9 @@ balls_layer:setPartition(partition)
 
 -- Making the ball
 local balls = {}
-local number_of_balls = 6
+local number_of_balls = 3
 for i=1,number_of_balls do
-  balls[i] = Util:character({ file = 'images/soccer-ball.png', width = 600, height = 600, scale = 0.2})
-  balls[i].name = "Football " .. i
+  balls[i] = Util:character({ file = 'images/soccer-ball.png', width = 600, height = 600, scale = 0.2, name = "Football " .. i})
   partition:insertProp(balls[i])
 end
 
@@ -33,6 +32,7 @@ function onClick(down)
      pick:setPriority ( priority )
      priority = priority + 1
      pick:moveScl ( 0.25, 0.25, 0.125, MOAIEaseType.EASE_IN )
+     print(pick.name)
     end
   else
     if pick then
