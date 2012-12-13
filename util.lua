@@ -27,6 +27,13 @@ function Util:character(properties)
   gfxQuad:setRect(-w,-h,w,h)
   prop = MOAIProp2D.new()
   prop:setDeck(gfxQuad)
+
+  if properties.name then
+    prop.name = properties.name
+  else
+    prop.name = "Unnamed"
+  end
+
   return prop
 end
 
