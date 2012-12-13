@@ -6,7 +6,7 @@ local priority = 1
 local size = { width = 320*scale, height = 480*scale }
 Util:window('H 0.3', size)
 viewport = Util:viewport(size)
-background = Util:character({ file = 'images/paper-background.jpg', width = 320*scale, height = 480*scale })
+background = Util:character({ file = 'images/paper-background.jpg', width = 320, height = 480, scale = 0.5})
 bg_layer = Util:layer(viewport, true)
 bg_layer:insertProp(background)
 
@@ -19,7 +19,7 @@ balls_layer:setPartition(partition)
 local balls = {}
 local number_of_balls = 3
 for i=1,number_of_balls do
-  balls[i] = Util:character({ file = 'images/soccer-ball.png', width = 600, height = 600, scale = 0.2, name = "Football " .. i})
+  balls[i] = Util:character({ file = 'images/soccer-ball.png', width = 600, height = 600, scale = 0.1, name = "Football " .. i})
   partition:insertProp(balls[i])
 end
 
@@ -31,12 +31,12 @@ function onClick(down)
     if pick then
      pick:setPriority ( priority )
      priority = priority + 1
-     pick:moveScl ( 0.25, 0.25, 0.125, MOAIEaseType.EASE_IN )
+     pick:moveScl ( 0.01, 0.01, 0.125, MOAIEaseType.EASE_IN )
      print(pick.name)
     end
   else
     if pick then
-      pick:moveScl ( -0.25, -0.25, 0.125, MOAIEaseType.EASE_IN )
+      pick:moveScl ( -0.01, -0.01, 0.125, MOAIEaseType.EASE_IN )
       pick:moveLoc (-10, 0, 1, MOAIEaseType.EASE_IN )
       pick:moveRot (10, 1, MOAIEaseType.EASE_IN )
       pick = nil
