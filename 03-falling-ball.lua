@@ -1,9 +1,9 @@
 require 'util'
 
-local scale = 1
+local scale = 1/2
 local priority = 1
 
-local size = { width = 640, height = 960 }
+local size = { width = 640*scale, height = 960*scale }
 Util:window('Falling Ball', size)
 viewport = Util:viewport(size)
 
@@ -13,7 +13,7 @@ local partition = MOAIPartition.new()
 balls_layer:setPartition(partition)
 
 -- Making the ball
-local ball = Util:character({ file = 'images/soccer-ball.png', width = 600, height = 600, scale = 0.1, name = "Football"})
+local ball = Util:character({ file = 'images/soccer-ball.png', width = 600, height = 600, scale = 0.1*scale, name = "Football"})
 partition:insertProp(ball)
 
 
@@ -38,7 +38,8 @@ body:setAngularVelocity(2)
 -- }
 
 -- fixture = body:addPolygon ( poly )
-fixture = body:addCircle( 260, 420, 60 )
+diameter = 600*ball.scale
+fixture = body:addCircle( size.width/2-diameter, size.height/2-diameter, diameter )
 fixture:setDensity ( 1 )
 fixture:setFriction ( 0.3 )
 fixture:setRestitution( 0.7 )
@@ -48,12 +49,13 @@ fixture:setCollisionHandler ( onCollide, MOAIBox2DArbiter.BEGIN + MOAIBox2DArbit
 body:resetMassData ()
 body:applyAngularImpulse ( 2 )
 ball:setParent ( body )
+ball:setLoc(size.width/2-diameter, size.height/2-diameter, diameter)
 
 -- adding ground
 -- local ground_layer = Util:layer(viewport, true)
 -- local ground = Util:character({ name = "ground", scale = 0.7, file = "images/ground.png", width = 480, height = 86 })
 -- ground_layer:insertProp(ground)
--- ground:setLoc(0,-420)
+-- ground:setLoc(0,-size.height/2)
 ground_body     = world:addBody(MOAIBox2DBody.STATIC)
 ground_fixture  = ground_body:addRect(-size.width/2, -size.height/2,size.width/2+1,40-size.height/2)
 ground_fixture:setFilter ( 0x02 )
