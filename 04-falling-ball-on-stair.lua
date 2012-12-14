@@ -43,7 +43,7 @@ diameter = 600*ball.scale
 fixture = body:addCircle( size.width/2-diameter, size.height/2-diameter, diameter )
 fixture:setDensity ( 1 )
 fixture:setFriction ( 0.3 )
-fixture:setRestitution( 0.9 )
+fixture:setRestitution( 0.5 )
 fixture:setFilter ( 0x01 )
 -- fixture:setCollisionHandler ( onCollide, MOAIBox2DArbiter.BEGIN + MOAIBox2DArbiter.END, 0x02 )
 
