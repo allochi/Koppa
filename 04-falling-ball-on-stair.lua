@@ -15,6 +15,7 @@ balls_layer:setPartition(partition)
 
 -- Making the ball
 local ball = Util:character({ file = 'images/soccer-ball.png', width = 600, height = 600, scale = 0.1*scale, name = "Football"})
+-- local ball = Util:character({ file = 'images/kaw-logo.png', width = 600, height = 600, scale = 0.1*scale, name = "Football"})
 partition:insertProp(ball)
 
 
