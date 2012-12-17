@@ -11,6 +11,20 @@ function Util:viewport(size)
   return viewport
 end
 
+textures = {}
+
+function Util:texture(file_path)
+  local texture = textures[file_path]
+  if not texture then
+    local moai_texture = MOAITexture.new()
+    moai_texture:load(file_path)
+    local sizex, sizey = moai_texture:getSize()
+    textures[file_path] = {image = moai_texture, width = sizex, height = sizey}
+    texture = textures[file_path]
+  end
+  return texture
+end
+
 function Util:character(properties)
   
   if not properties.file then
@@ -22,8 +36,10 @@ function Util:character(properties)
   end
 
   local gfxQuad = MOAIGfxQuad2D.new()
-  gfxQuad:setTexture(properties.file)
-  local w,h = properties.width, properties.height
+  texture = Util:texture(properties.file)
+  gfxQuad:setTexture(texture.image)
+  -- local w,h = properties.width, properties.height
+  local w,h = texture.width, texture.height
   gfxQuad:setRect(-w,-h,w,h)
   prop = MOAIProp2D.new()
   prop:setDeck(gfxQuad)
@@ -32,7 +48,7 @@ function Util:character(properties)
 
 
   prop.scale = properties.scale
-  
+
   if properties.name then
     prop.name = properties.name
   else
